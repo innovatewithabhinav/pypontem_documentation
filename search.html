@@ -31,11 +31,11 @@
 
           
           
-          <a href="index.html" class="icon icon-home">
+          <a href="#" class="icon icon-home">
             PyPontem Documentation
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -43,19 +43,34 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-              <ul>
+              <ul class="sidebar-menu">
                 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction to pypontem</a></li>
                 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="tpl.html">TPL parsing</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="ppl.html">PPL parsing</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+              
+                <li class="toctree-l1" style="padding-left: 20px;color: #d9d9d9; font-weight: 400;">TPL parsing</li>
+                  <ul class="dropdown-menu" style="padding-left: 20px;">
+                    <li class="toctree-l1"><a class="reference internal" href="tpl.html">Class & Method Description</a></li>
+                    <li class="toctree-l1"><a class="reference internal" href="code_tpl.html">Code Examples</a></li>
+                  </ul>
                 
+              
+                <li class="toctree-l1 dropdown" style="padding-left: 20px;color: #d9d9d9; font-weight: 400;">PPL parsing</li>
+                  <ul class="dropdown-menu" style="padding-left: 20px;">
+                    <li class="toctree-l1"><a class="reference internal" href="ppl.html">Class & Method Description</a></li>
+                    <li class="toctree-l1"><a class="reference internal" href="code_ppl.html">Code Examples</a></li>
+                  </ul>
+
+                <li class="toctree-l1"><a class="reference internal" href="inputFiles.html">Input matrix templates</a></li>
+              
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
               </ul>
+              
+               
+              
 
         </div>
       </div>
     </nav>
-
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">PyPontem Documentation</a>
