@@ -5,48 +5,35 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize, reopened, closed]
     branches:
       - main
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    permissions:
-       id-token: write
-       contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          submodules: true
-          lfs: false
+          python-version: '3.x'  # Ensure you're using a compatible Python version
 
-      - name: Ensure .nojekyll file exists
-        run: touch docs/.nojekyll  # Prevents GitHub/Azure from ignoring _static and other folders
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx
 
-      - name: Build And Deploy
-        id: builddeploy
+      - name: Build Sphinx documentation
+        run: |
+          sphinx-build -b html docs/ docs/_build/html
+          touch docs/_build/html/.nojekyll  # Ensure .nojekyll file is present
+
+      - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_RED_CLIFF_0FF26B00F }}
-          action: "upload"
-          ###### Repository/Build Configurations ######
-          app_location: "docs"  # This is where your HTML files are
-          api_location: "" # No API needed for static sites
-          output_location: "docs" # This ensures Azure deploys the correct folder
-          github_id_token: ${{ steps.idtoken.outputs.result }}
-          ###### End of Repository/Build Configurations ######
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          action: "close"
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          app_location: docs/_build/html
+          api_location: ""
