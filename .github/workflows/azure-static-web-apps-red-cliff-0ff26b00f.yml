@@ -25,7 +25,7 @@ jobs:
           lfs: false
 
       - name: Ensure .nojekyll file exists
-        run: touch docs/_build/html/.nojekyll
+        run: touch docs/.nojekyll  # Prevents GitHub/Azure from ignoring _static and other folders
 
       - name: Build And Deploy
         id: builddeploy
@@ -33,11 +33,10 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_RED_CLIFF_0FF26B00F }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "docs/_build/html"  # Ensure this is where your Sphinx HTML files are
+          ###### Repository/Build Configurations ######
+          app_location: "docs"  # This is where your HTML files are
           api_location: "" # No API needed for static sites
-          output_location: "docs/_build/html"
+          output_location: "docs" # This ensures Azure deploys the correct folder
           github_id_token: ${{ steps.idtoken.outputs.result }}
           ###### End of Repository/Build Configurations ######
 
